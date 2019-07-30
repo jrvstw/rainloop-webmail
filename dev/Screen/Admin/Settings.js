@@ -5,6 +5,7 @@ import { AbstractSettingsScreen } from 'Screen/AbstractSettings';
 
 import { GeneralAdminSettings } from 'Settings/Admin/General';
 import { DomainsAdminSettings } from 'Settings/Admin/Domains';
+import { BlockAdminSettings } from 'Settings/Admin/Block';
 import { LoginAdminSettings } from 'Settings/Admin/Login';
 import { ContactsAdminSettings } from 'Settings/Admin/Contacts';
 import { SecurityAdminSettings } from 'Settings/Admin/Security';
@@ -46,6 +47,8 @@ class SettingsAdminScreen extends AbstractSettingsScreen {
 		);
 
 		addSettingsViewModel(DomainsAdminSettings, 'AdminSettingsDomains', 'TABS_LABELS/LABEL_DOMAINS_NAME', 'domains');
+
+		addSettingsViewModel(BlockAdminSettings, 'AdminSettingsBlock', 'TABS_LABELS/LABEL_BLOCK_NAME', 'block');
 
 		addSettingsViewModel(LoginAdminSettings, 'AdminSettingsLogin', 'TABS_LABELS/LABEL_LOGIN_NAME', 'login');
 

@@ -12,6 +12,7 @@ en_US:
     LABEL_BRANDING_NAME: "Branding"
     LABEL_CONTACTS_NAME: "Contacts"
     LABEL_DOMAINS_NAME: "Domains"
+    LABEL_BLOCK_NAME: "Block"
     LABEL_SECURITY_NAME: "Security"
     LABEL_INTEGRATION_NAME: "Integrations"
     LABEL_PLUGINS_NAME: "Plugins"
@@ -95,6 +96,12 @@ en_US:
         List of domains webmail is allowed to access.
         <br />
         Click on the name to configure the domain.
+  TAB_BLOCK:
+    LEGEND_BLOCK: "Block"
+    BUTTON_BLOCK_ACCOUNT: "Block Account"
+    BUTTON_UNBLOCK_ACCOUNT: "Unblock Account"
+    HTML_BLOCK_HELPER: |
+        Sample text.
   TAB_SECURITY:
     LEGEND_SECURITY: "Security"
     LABEL_ALLOW_TWO_STEP: "Allow 2-Step Verification"
