@@ -14,10 +14,11 @@ import { showScreenPopup } from 'Knoin/Knoin';
 class BlockAdminSettings {
 	constructor() {
 		//
+		//this.visibility = ko.computed('hidden');
 	}
 
 	blockAccount() {
-		showScreenPopup(require('View/Popup/Domain'));
+		showScreenPopup(require('View/Popup/Block'));
 	}
 
 	unblockAccount() {

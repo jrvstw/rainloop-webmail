@@ -235,6 +235,12 @@ en:
     WHITE_LIST_ALERT: |
         List of domain users webmail is allowed to access.
         Use a space as delimiter.
+  POPUPS_BLOCK:
+    TITLE_BLOCK_ACCOUNT: "Block Account"
+    LABEL_USERNAME: "Username"
+    LABEL_DOMAIN: "Domain"
+    BUTTON_CLOSE: "Close"
+    BUTTON_ADD: "Add"
   POPUPS_PLUGIN:
     TITLE_PLUGIN: "Plugin"
     DESC_NOTHING_TO_CONFIGURE: "Nothing to configure"
