@@ -13,6 +13,7 @@ import * as Settings from 'Storage/Settings';
 import AppStore from 'Stores/Admin/App';
 import CapaStore from 'Stores/Admin/Capa';
 import DomainStore from 'Stores/Admin/Domain';
+import BlockAccountStore from 'Stores/Admin/BlockAccount';
 import PluginStore from 'Stores/Admin/Plugin';
 import LicenseStore from 'Stores/Admin/License';
 import PackageStore from 'Stores/Admin/Package';
@@ -32,6 +33,23 @@ class AdminApp extends AbstractApp {
 
 	remote() {
 		return Remote;
+	}
+
+	reloadBlockAccountList() {
+		BlockAccountStore.blockAccounts.loading(true);
+		Remote.blockAccountList((result, data) => {
+			BlockAccountStore.blockAccounts.loading(false);
+			if (StorageResultType.Success === result && data && data.Result) {
+				BlockAccountStore.blockAccounts(
+					_.map(data.Result, ([enabled, alias], name) => ({
+						name: name,
+						disabled: ko.observable(!enabled),
+						alias: alias,
+						deleteAccess: ko.observable(false)
+					}))
+				);
+			}
+		});
 	}
 
 	reloadDomainList() {

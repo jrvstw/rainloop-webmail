@@ -534,6 +534,8 @@ export const Notification = {
 	'AccountAlreadyExists': 801,
 	'AccountDoesNotExist': 802,
 
+	'AccountAlreadyBlocked': 851,
+
 	'MailServerError': 901,
 	'ClientViewError': 902,
 	'InvalidInputArgument': 903,

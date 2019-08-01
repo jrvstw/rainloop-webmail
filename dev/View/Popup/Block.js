@@ -6,6 +6,7 @@ import { bMobileDevice } from 'Common/Globals';
 import { i18n } from 'Common/Translator';
 
 import DomainStore from 'Stores/Admin/Domain';
+import BlockAccountStore from 'Stores/Admin/BlockAccount';
 
 import Remote from 'Remote/Admin/Ajax';
 
@@ -28,33 +29,34 @@ class BlockPopupView extends AbstractViewNext {
 		this.name = ko.observable('');
 		this.name.focused = ko.observable(false);
 
-		this.alias = ko.observable('');
+		this.domain = ko.observable('');
 
+		this.blockAccounts = BlockAccountStore.blockAccounts;
 		this.domains = DomainStore.domainsWithoutAliases;
 
 		this.domainsOptions = ko.computed(() =>
 			_.map(this.domains(), (item) => ({ optValue: item.name, optText: item.name }))
 		);
 
-		this.canBeSaved = ko.computed(() => !this.saving() && '' !== this.name() && '' !== this.alias());
+		this.canBeSaved = ko.computed(() => !this.saving() && '' !== this.name() && '' !== this.domain());
 
-		this.onDomainAliasCreateOrSaveResponse = _.bind(this.onDomainAliasCreateOrSaveResponse, this);
+		this.onBlockAccountCreateOrSaveResponse = _.bind(this.onBlockAccountCreateOrSaveResponse, this);
 	}
 
 	@command((self) => self.canBeSaved())
 	createCommand() {
 		this.saving(true);
-		Remote.createDomainAlias(this.onDomainAliasCreateOrSaveResponse, this.name(), this.alias());
+		Remote.blockAccount(this.onBlockAccountCreateOrSaveResponse, this.name(), this.domain());
 	}
 
-	onDomainAliasCreateOrSaveResponse(result, data) {
+	onBlockAccountCreateOrSaveResponse(result, data) {
 		this.saving(false);
 		if (StorageResultType.Success === result && data) {
 			if (data.Result) {
-				getApp().reloadDomainList();
+				getApp().reloadBlockAccountList();
 				this.closeCommand();
-			} else if (Notification.DomainAlreadyExists === data.ErrorCode) {
-				this.savingError(i18n('ERRORS/DOMAIN_ALREADY_EXISTS'));
+			} else if (Notification.AccountAlreadyBlocked === data.ErrorCode) {
+				this.savingError(i18n('ERRORS/ACCOUNT_ALREADY_BLOCKED'));
 			}
 		} else {
 			this.savingError(i18n('ERRORS/UNKNOWN_ERROR'));
@@ -78,7 +80,7 @@ class BlockPopupView extends AbstractViewNext {
 		this.name('');
 		this.name.focused(false);
 
-		this.alias('');
+		this.domain('');
 	}
 }
 

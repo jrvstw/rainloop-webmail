@@ -1,19 +1,17 @@
-/*
-import _ from '_';
-import ko from 'ko';
+//import _ from '_';
+//import ko from 'ko';
 
-import { StorageResultType } from 'Common/Enums';
-
-import DomainStore from 'Stores/Admin/Domain';
-import Remote from 'Remote/Admin/Ajax';
-
-import { getApp } from 'Helper/Apps/Admin';
-*/
+//import { StorageResultType } from 'Common/Enums';
 import { showScreenPopup } from 'Knoin/Knoin';
+
+import BlockAccountStore from 'Stores/Admin/BlockAccount';
+//import Remote from 'Remote/Admin/Ajax';
+
+//import { getApp } from 'Helper/Apps/Admin';
 
 class BlockAdminSettings {
 	constructor() {
-		//
+		this.blockAccounts = BlockAccountStore.blockAccounts;
 		//this.visibility = ko.computed('hidden');
 	}
 
@@ -21,8 +19,9 @@ class BlockAdminSettings {
 		showScreenPopup(require('View/Popup/Block'));
 	}
 
-	unblockAccount() {
-		//
+	unblockAccount(account) {
+		this.blockAccounts.remove(account);
+		//Remote.
 	}
 
 	onBuild() {
