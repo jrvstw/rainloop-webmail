@@ -4102,6 +4102,17 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	/**
 	 * @return array
 	 */
+	public function DoAdminBlockSave()
+	{
+		$this->IsAdminLoggined();
+
+		//return $this->DefaultResponse(__FUNCTION__,
+		// jarvis
+	}
+
+	/**
+	 * @return array
+	 */
 	public function DoAdminDomainAliasSave()
 	{
 		$this->IsAdminLoggined();
