@@ -4102,7 +4102,16 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	/**
 	 * @return array
 	 */
-	public function DoAdminBlockSave()
+	public function DoAdminBlockAccountList()
+	{
+		$this->IsAdminLoggined();
+
+	}
+
+	/**
+	 * @return array
+	 */
+	public function DoAdminBlockAccountSave()
 	{
 		$this->IsAdminLoggined();
 

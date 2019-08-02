@@ -1,0 +1,8 @@
+git@192.168.188.249:~/git_repo/chamber_repo
+
+存檔案可以使用兩種方式
+\RainLoop\Providers\Files\FileStorage 或 file_put_contents
+存檔位置建議在 /data/data/default/ 底下
+存資料庫可以參考有擴充 PdoAbstract.php 的 class
+
+https://hackmd.io/360Da_kFR56l0Nc9fiF0cg

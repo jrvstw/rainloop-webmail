@@ -198,7 +198,7 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 
 	// by jarvis
 	blockAccount(fCallback, sUsername, sDomain) {
-		this.defaultRequest(fCallback, 'AdminBlockSave', {
+		this.defaultRequest(fCallback, 'AdminBlockAccountSave', {
 			Username: sUsername,
 			Domain: sDomain
 		});
@@ -206,7 +206,7 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 
 	// by jarvis
 	unblockAccount(fCallback, sUsername, sDomain) {
-		this.defaultRequest(fCallback, 'AdminUnblockSave', {
+		this.defaultRequest(fCallback, 'AdminUnblockAccountSave', {
 			Username: sUsername,
 			Domain: sDomain
 		});
