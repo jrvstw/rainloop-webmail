@@ -48,7 +48,7 @@ class SettingsAdminScreen extends AbstractSettingsScreen {
 
 		addSettingsViewModel(DomainsAdminSettings, 'AdminSettingsDomains', 'TABS_LABELS/LABEL_DOMAINS_NAME', 'domains');
 
-		addSettingsViewModel(BlockAdminSettings, 'AdminSettingsBlock', 'TABS_LABELS/LABEL_BLOCK_NAME', 'block');
+		addSettingsViewModel(BlockAdminSettings, 'AdminSettingsBlockAccount', 'TABS_LABELS/LABEL_BLOCK_NAME', 'block');
 
 		addSettingsViewModel(LoginAdminSettings, 'AdminSettingsLogin', 'TABS_LABELS/LABEL_LOGIN_NAME', 'login');
 

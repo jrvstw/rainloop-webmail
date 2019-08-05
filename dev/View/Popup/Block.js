@@ -6,7 +6,7 @@ import { bMobileDevice } from 'Common/Globals';
 import { i18n } from 'Common/Translator';
 
 import DomainStore from 'Stores/Admin/Domain';
-import BlockAccountStore from 'Stores/Admin/BlockAccount';
+import BlockedAccountStore from 'Stores/Admin/BlockedAccount';
 
 import Remote from 'Remote/Admin/Ajax';
 
@@ -31,7 +31,7 @@ class BlockPopupView extends AbstractViewNext {
 
 		this.domain = ko.observable('');
 
-		this.blockAccounts = BlockAccountStore.blockAccounts;
+		this.blockedAccounts = BlockedAccountStore.blockedAccounts;
 		this.domains = DomainStore.domainsWithoutAliases;
 
 		this.domainsOptions = ko.computed(() =>
@@ -40,20 +40,20 @@ class BlockPopupView extends AbstractViewNext {
 
 		this.canBeSaved = ko.computed(() => !this.saving() && '' !== this.name() && '' !== this.domain());
 
-		this.onBlockAccountCreateOrSaveResponse = _.bind(this.onBlockAccountCreateOrSaveResponse, this);
+		this.onBlockedAccountCreateOrSaveResponse = _.bind(this.onBlockedAccountCreateOrSaveResponse, this);
 	}
 
 	@command((self) => self.canBeSaved())
 	createCommand() {
 		this.saving(true);
-		Remote.blockAccount(this.onBlockAccountCreateOrSaveResponse, this.name(), this.domain());
+		Remote.blockedAccount(this.onBlockedAccountCreateOrSaveResponse, this.name(), this.domain());
 	}
 
-	onBlockAccountCreateOrSaveResponse(result, data) {
+	onBlockedAccountCreateOrSaveResponse(result, data) {
 		this.saving(false);
 		if (StorageResultType.Success === result && data) {
 			if (data.Result) {
-				getApp().reloadBlockAccountList();
+				getApp().reloadBlockedAccountList();
 				this.closeCommand();
 			} else if (Notification.AccountAlreadyBlocked === data.ErrorCode) {
 				this.savingError(i18n('ERRORS/ACCOUNT_ALREADY_BLOCKED'));

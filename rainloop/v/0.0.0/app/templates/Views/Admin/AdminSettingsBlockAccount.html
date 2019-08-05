@@ -11,14 +11,14 @@
 		<blockquote>
 			<p class="muted" data-i18n="[html]TAB_BLOCK/HTML_BLOCK_HELPER"></p>
 		</blockquote>
-		<table class="table table-hover b-admin-domains-list-table" data-bind="i18nUpdate: domains">
+		<table class="table table-hover b-admin-block-account-list-table" data-bind="i18nUpdate: blockedAccounts">
 			<colgroup>
 				<col />
 				<col style="width: 140px" />
 				<col style="width: 1%" />
 				<col style="width: 1%" />
 			</colgroup>
-			<tbody data-bind="template: { name: 'AdminSettingsDomainListItem', foreach: domains }"></tbody>
+			<tbody data-bind="template: { name: 'AdminSettingsBlockedAccountListItem', foreach: blockedAccounts }"></tbody>
 		</table>
 	</div>
 </div>

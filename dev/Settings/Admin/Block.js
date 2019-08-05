@@ -1,51 +1,37 @@
-//import _ from '_';
-//import ko from 'ko';
+import _ from '_';
+import ko from 'ko';
 
-//import { StorageResultType } from 'Common/Enums';
+import { StorageResultType } from 'Common/Enums';
 import { showScreenPopup } from 'Knoin/Knoin';
 
-import BlockAccountStore from 'Stores/Admin/BlockAccount';
-//import Remote from 'Remote/Admin/Ajax';
+import BlockedAccountStore from 'Stores/Admin/BlockedAccount';
+//import DomainStore from 'Stores/Admin/Domain';
+import Remote from 'Remote/Admin/Ajax';
 
-//import { getApp } from 'Helper/Apps/Admin';
+import { getApp } from 'Helper/Apps/Admin';
 
 class BlockAdminSettings {
 	constructor() {
-		this.blockAccounts = BlockAccountStore.blockAccounts;
-		//this.visibility = ko.computed('hidden');
+		//this.blockedAccounts = DomainStore.domains;
+		this.blockedAccounts = BlockedAccountStore.blockedAccounts;
+
+		this.visibility = ko.computed(() => (this.blockedAccounts.loading() ? 'visible' : 'hidden'));
+
+		//this.domainForDeletion = ko.observable(null).deleteAccessHelper();
+		this.accountForUnblock = ko.observable(null).deleteAccessHelper();
+
+		this.onBlockedAccountListChangeRequest = _.bind(this.onBlockedAccountListChangeRequest, this);
+		this.onBlockedAccountLoadRequest = _.bind(this.onBlockedAccountLoadRequest, this);
 	}
 
 	blockAccount() {
 		showScreenPopup(require('View/Popup/Block'));
 	}
 
-	unblockAccount(account) {
-		this.blockAccounts.remove(account);
-		//Remote.
-	}
-
-	onBuild() {
-		//
-	}
-
 	/*
-	constructor() {
-		this.domains = DomainStore.domains;
-
-		this.visibility = ko.computed(() => (this.domains.loading() ? 'visible' : 'hidden'));
-
-		this.domainForDeletion = ko.observable(null).deleteAccessHelper();
-
-		this.onDomainListChangeRequest = _.bind(this.onDomainListChangeRequest, this);
-		this.onDomainLoadRequest = _.bind(this.onDomainLoadRequest, this);
-	}
-
-	createDomain() {
-		showScreenPopup(require('View/Popup/Domain'));
-	}
-
-	createDomainAlias() {
-		showScreenPopup(require('View/Popup/DomainAlias'));
+	unblockAccount(account) {
+		this.blockedAccounts.remove(account);
+		//Remote.
 	}
 
 	deleteDomain(domain) {
@@ -58,29 +44,29 @@ class BlockAdminSettings {
 		Remote.domainDisable(this.onDomainListChangeRequest, domain.name, domain.disabled());
 	}
 
+	*/
 	onBuild(oDom) {
 		const self = this;
-		oDom.on('click', '.b-admin-domains-list-table .e-item .e-action', function() {
+		oDom.on('click', '.b-admin-blocked-account-list-table .e-item .e-action', function() {
 			// eslint-disable-line prefer-arrow-callback
-			const domainItem = ko.dataFor(this); // eslint-disable-line no-invalid-this
-			if (domainItem) {
-				Remote.domain(self.onDomainLoadRequest, domainItem.name);
+			const blockedAccountItem = ko.dataFor(this); // eslint-disable-line no-invalid-this
+			if (blockedAccountItem) {
+				Remote.blockedAccount(self.onBlockedAccountLoadRequest, blockedAccountItem.name);
 			}
 		});
 
-		getApp().reloadDomainList();
+		getApp().reloadBlockedAccountList();
 	}
 
-	onDomainLoadRequest(sResult, oData) {
+	onBlockedAccountLoadRequest(sResult, oData) {
 		if (StorageResultType.Success === sResult && oData && oData.Result) {
-			showScreenPopup(require('View/Popup/Domain'), [oData.Result]);
+			showScreenPopup(require('View/Popup/Block'), [oData.Result]);
 		}
 	}
 
-	onDomainListChangeRequest() {
-		getApp().reloadDomainList();
+	onBlockedAccountListChangeRequest() {
+		getApp().reloadBlockedAccountList();
 	}
-	*/
 }
 
 export { BlockAdminSettings, BlockAdminSettings as default };

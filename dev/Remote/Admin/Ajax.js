@@ -57,6 +57,10 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 		});
 	}
 
+	blockedAccountList(fCallback) {
+		this.defaultRequest(fCallback, 'AdminBlockedAccountList');
+	}
+
 	/**
 	 * @param {?Function} fCallback
 	 */
@@ -118,6 +122,13 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 	 */
 	domain(fCallback, sName) {
 		this.defaultRequest(fCallback, 'AdminDomainLoad', {
+			'Name': sName
+		});
+	}
+
+	// todo
+	blockedAccount(fCallback, sName) {
+		this.defaultRequest(fCallback, 'AdminBlockedAccountLoad', {
 			'Name': sName
 		});
 	}
@@ -196,7 +207,7 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 		});
 	}
 
-	// by jarvis
+	// todo
 	blockAccount(fCallback, sUsername, sDomain) {
 		this.defaultRequest(fCallback, 'AdminBlockAccountSave', {
 			Username: sUsername,
@@ -204,13 +215,15 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 		});
 	}
 
-	// by jarvis
+	/*
+	// todo
 	unblockAccount(fCallback, sUsername, sDomain) {
 		this.defaultRequest(fCallback, 'AdminUnblockAccountSave', {
 			Username: sUsername,
 			Domain: sDomain
 		});
 	}
+	*/
 
 	createDomainAlias(fCallback, sName, sAlias) {
 		this.defaultRequest(fCallback, 'AdminDomainAliasSave', {

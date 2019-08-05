@@ -4102,21 +4102,39 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	/**
 	 * @return array
 	 */
-	public function DoAdminBlockAccountList()
+	public function DoAdminBlockedAccountLoad()
 	{
 		$this->IsAdminLoggined();
 
+		// todo
+		$aResult[] = array( 'Name' => "a");
+		$aResult[] = array( 'Name' => "b");
+		$aResult[] = array( 'Name' => "c");
+		return $this->DefaultResponse(__FUNCTION__, $aResult);
 	}
 
 	/**
 	 * @return array
 	 */
-	public function DoAdminBlockAccountSave()
+	public function DoAdminBlockedAccountList()
+	{
+		$this->IsAdminLoggined();
+
+		// todo
+		$aResult[] = array( 'Name' => "a");
+		$aResult[] = array( 'Name' => "b");
+		$aResult[] = array( 'Name' => "c");
+		return $this->DefaultResponse(__FUNCTION__, $aResult);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function DoAdminBlockedAccountSave()
 	{
 		$this->IsAdminLoggined();
 
 		//return $this->DefaultResponse(__FUNCTION__,
-		// jarvis
 	}
 
 	/**
