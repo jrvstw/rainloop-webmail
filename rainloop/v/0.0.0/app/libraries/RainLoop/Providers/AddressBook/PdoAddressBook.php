@@ -1759,6 +1759,15 @@ class PdoAddressBook
 			case 'mysql':
 				$sInitial = <<<MYSQLINITIAL
 
+CREATE TABLE IF NOT EXISTS rainloop_ab_blocked_accounts (
+
+	id_account		bigint UNSIGNED		NOT NULL AUTO_INCREMENT,
+	id_account_str	varchar(128)		NOT NULL DEFAULT '',
+
+	PRIMARY KEY(id_account)
+
+)/*!40000 ENGINE=INNODB *//*!40101 CHARACTER SET utf8 COLLATE utf8_general_ci */;
+
 CREATE TABLE IF NOT EXISTS rainloop_ab_contacts (
 
 	id_contact		bigint UNSIGNED		NOT NULL AUTO_INCREMENT,

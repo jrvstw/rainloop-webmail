@@ -12,12 +12,10 @@ import { getApp } from 'Helper/Apps/Admin';
 
 class BlockAdminSettings {
 	constructor() {
-		//this.blockedAccounts = DomainStore.domains;
 		this.blockedAccounts = BlockedAccountStore.blockedAccounts;
 
 		this.visibility = ko.computed(() => (this.blockedAccounts.loading() ? 'visible' : 'hidden'));
 
-		//this.domainForDeletion = ko.observable(null).deleteAccessHelper();
 		this.accountForUnblock = ko.observable(null).deleteAccessHelper();
 
 		this.onBlockedAccountListChangeRequest = _.bind(this.onBlockedAccountListChangeRequest, this);
