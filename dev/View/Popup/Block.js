@@ -46,7 +46,7 @@ class BlockPopupView extends AbstractViewNext {
 	@command((self) => self.canBeSaved())
 	createCommand() {
 		this.saving(true);
-		Remote.blockedAccount(this.onBlockedAccountCreateOrSaveResponse, this.name(), this.domain());
+		Remote.blockAccount(this.onBlockedAccountCreateOrSaveResponse, this.name().concat('@', this.domain()));
 	}
 
 	onBlockedAccountCreateOrSaveResponse(result, data) {
@@ -65,6 +65,7 @@ class BlockPopupView extends AbstractViewNext {
 
 	onShow() {
 		this.clearForm();
+		getApp().reloadDomainList();
 	}
 
 	onShowWithDelay() {

@@ -28,22 +28,11 @@ class BlockAdminSettings {
 
 	unblockAccount(account) {
 		this.blockedAccounts.remove(account);
-		//Remote.
+		Remote.unblockAccount(this.onBlockedAccountListChangeRequest, account.name);
 	}
 
-	/*
-	deleteDomain(domain) {
-		this.domains.remove(domain);
-		Remote.domainDelete(this.onDomainListChangeRequest, domain.name);
-	}
-
-	disableDomain(domain) {
-		domain.disabled(!domain.disabled());
-		Remote.domainDisable(this.onDomainListChangeRequest, domain.name, domain.disabled());
-	}
-
-	*/
-	onBuild(oDom) {
+	onBuild() {
+		/*
 		const self = this;
 		oDom.on('click', '.b-admin-blocked-account-list-table .e-item .e-action', function() {
 			// eslint-disable-line prefer-arrow-callback
@@ -52,6 +41,7 @@ class BlockAdminSettings {
 				Remote.blockedAccount(self.onBlockedAccountLoadRequest, blockedAccountItem.name);
 			}
 		});
+		*/
 
 		getApp().reloadBlockedAccountList();
 	}

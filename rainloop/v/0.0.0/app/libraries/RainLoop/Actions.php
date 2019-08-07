@@ -4102,20 +4102,6 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	/**
 	 * @return array
 	 */
-	public function DoAdminBlockedAccountLoad()
-	{
-		$this->IsAdminLoggined();
-
-		// todo
-		$aResult[] = array( 'Name' => "a");
-		$aResult[] = array( 'Name' => "b");
-		$aResult[] = array( 'Name' => "c");
-		return $this->DefaultResponse(__FUNCTION__, $aResult);
-	}
-
-	/**
-	 * @return array
-	 */
 	public function DoAdminBlockedAccountList()
 	{
 		$this->IsAdminLoggined();
@@ -4131,11 +4117,31 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	/**
 	 * @return array
 	 */
-	public function DoAdminBlockedAccountSave()
+	public function DoAdminAccountBlock()
 	{
 		$this->IsAdminLoggined();
 
-		//return $this->DefaultResponse(__FUNCTION__,
+		$file = APP_PRIVATE_DATA.'blocked/blocked.txt';
+		$tmp = file_get_contents($file);
+		$append = $this->GetActionParam('Name', '')."\n";
+		file_put_contents($file, $tmp.$append);
+
+		return $this->DefaultResponse(__FUNCTION__, true);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function DoAdminAccountUnblock()
+	{
+		$this->IsAdminLoggined();
+
+		$file = APP_PRIVATE_DATA.'blocked/blocked.txt';
+		$tmp = file_get_contents($file);
+		$tmp = str_replace($this->GetActionParam('Name', '')."\n", "", $tmp);
+		file_put_contents($file, $tmp);
+
+		return $this->DefaultResponse(__FUNCTION__, true);
 	}
 
 	/**
