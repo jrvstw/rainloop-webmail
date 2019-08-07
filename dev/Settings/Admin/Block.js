@@ -26,12 +26,12 @@ class BlockAdminSettings {
 		showScreenPopup(require('View/Popup/Block'));
 	}
 
-	/*
 	unblockAccount(account) {
 		this.blockedAccounts.remove(account);
 		//Remote.
 	}
 
+	/*
 	deleteDomain(domain) {
 		this.domains.remove(domain);
 		Remote.domainDelete(this.onDomainListChangeRequest, domain.name);

@@ -4121,9 +4121,10 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 		$this->IsAdminLoggined();
 
 		// todo
-		$aResult[] = array( 'Name' => "a");
-		$aResult[] = array( 'Name' => "b");
-		$aResult[] = array( 'Name' => "c");
+		$tmp = explode("\n", trim(file_get_contents(APP_PRIVATE_DATA.'blocked/blocked.txt'), "\n"));
+		foreach ($tmp as $item) {
+			$aResult[] = array( 'Name' => $item);
+		}
 		return $this->DefaultResponse(__FUNCTION__, $aResult);
 	}
 

@@ -215,7 +215,6 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 		});
 	}
 
-	/*
 	// todo
 	unblockAccount(fCallback, sUsername, sDomain) {
 		this.defaultRequest(fCallback, 'AdminUnblockAccountSave', {
@@ -223,7 +222,6 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 			Domain: sDomain
 		});
 	}
-	*/
 
 	createDomainAlias(fCallback, sName, sAlias) {
 		this.defaultRequest(fCallback, 'AdminDomainAliasSave', {
