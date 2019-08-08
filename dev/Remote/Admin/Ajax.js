@@ -210,13 +210,13 @@ class RemoteAdminAjax extends AbstractAjaxRemote {
 	}
 
 	blockAccount(fCallback, sAccount) {
-		this.defaultRequest(fCallback, 'AdminAccountBlock', {
+		this.defaultRequest(fCallback, 'AdminBlockedAccountAdd', {
 			Name: sAccount
 		});
 	}
 
 	unblockAccount(fCallback, sAccount) {
-		this.defaultRequest(fCallback, 'AdminAccountUnblock', {
+		this.defaultRequest(fCallback, 'AdminBlockedAccountDelete', {
 			Name: sAccount
 		});
 	}

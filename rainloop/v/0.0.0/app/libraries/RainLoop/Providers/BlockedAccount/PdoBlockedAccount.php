@@ -1,8 +1,8 @@
 <?php
 
-namespace RainLoop\Providers;
+namespace RainLoop\Providers\BlockedAccount;
 
-class PdoBlockedAccounts
+class PdoBlockedAccount
 	extends \RainLoop\Common\PdoAbstract
 {
 	/**
@@ -69,12 +69,9 @@ class PdoBlockedAccounts
 			$aFetch = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
 			if (\is_array($aFetch))
 			{
-				foreach ($aFetch as $aItem)
-				{
-					if ($aItem && !empty($aItem['prop_value']) && !empty($aItem['prop_frec']))
-					{
-						$aResult[$aItem['prop_value']] = (int) $aItem['prop_frec'];
-					}
+				$aResult = array();
+				foreach ($aFetch as $aItem) {
+					$aResult[] = array( 'Name' => (int) $aItem['id_account_str']);
 				}
 			}
 		}

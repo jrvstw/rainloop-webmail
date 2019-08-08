@@ -92,6 +92,11 @@ class Actions
 	private $oFiltersProvider;
 
 	/**
+	 * @var \RainLoop\Providers\BlockedAccount
+	 */
+	private $oBlockedAccountProvider;
+
+	/**
 	 * @var \RainLoop\Providers\AddressBook
 	 */
 	private $oAddressBookProvider;
@@ -148,6 +153,7 @@ class Actions
 		$this->oFilesProvider = null;
 		$this->oFiltersProvider = null;
 		$this->oDomainProvider = null;
+		$this->oBlockedAccountProvider = null;
 		$this->oAddressBookProvider = null;
 		$this->oSuggestionsProvider = null;
 		$this->oChangePasswordProvider = null;
@@ -302,6 +308,25 @@ class Actions
 					else
 					{
 						$mResult = new \RainLoop\Providers\AddressBook\PdoAddressBook($sDsn, $sUser, $sPassword, $sDsnType);
+					}
+					break;
+				case 'blocked-account':
+					// \RainLoop\Providers\BlockedAccount\BlockedAccountInterface
+
+					// todo
+					$sDsn = \trim($this->Config()->Get('contacts', 'pdo_dsn', ''));
+					$sUser = \trim($this->Config()->Get('contacts', 'pdo_user', ''));
+					$sPassword = (string) $this->Config()->Get('contacts', 'pdo_password', '');
+
+					$sDsnType = $this->ValidateContactPdoType(\trim($this->Config()->Get('contacts', 'type', 'sqlite')));
+					if ('sqlite' === $sDsnType)
+					{
+						$mResult = new \RainLoop\Providers\BlockedAccount\PdoBlockedAccount(
+							'sqlite:'.APP_PRIVATE_DATA.'BlockedAccount.sqlite', '', '', 'sqlite');
+					}
+					else
+					{
+						$mResult = new \RainLoop\Providers\BlockedAccount\PdoBlockedAccount($sDsn, $sUser, $sPassword, $sDsnType);
 					}
 					break;
 				case 'suggestions':
@@ -931,6 +956,20 @@ class Actions
 		}
 
 		return $this->oSuggestionsProvider;
+	}
+
+	/**
+	 * @return \RainLoop\Providers\BlockedAccount
+	 */
+	public function BlockedAccountProvider()
+	{
+		if (null === $this->oBlockedAccountProvider)
+		{
+			$this->oBlockedAccountProvider = new \RainLoop\Providers\BlockedAccount(
+				$this->fabrica('blocked-account'));
+		}
+
+		return $this->oBlockedAccountProvider;
 	}
 
 	/**
@@ -4107,6 +4146,15 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 		$this->IsAdminLoggined();
 
 		// todo
+		/*
+		$bResult = false;
+		if ($this->AddressBookProvider()->IsActive())
+		{
+			$bResult = $this->AddressBookProvider()->getList();
+		}
+
+		return $this->DefaultResponse(__FUNCTION__, $bResult);
+		 */
 		$tmp = explode("\n", trim(file_get_contents(APP_PRIVATE_DATA.'blocked/blocked.txt'), "\n"));
 		foreach ($tmp as $item) {
 			$aResult[] = array( 'Name' => $item);
@@ -4117,7 +4165,7 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	/**
 	 * @return array
 	 */
-	public function DoAdminAccountBlock()
+	public function DoAdminBlockedAccountAdd()
 	{
 		$this->IsAdminLoggined();
 
@@ -4132,7 +4180,7 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	/**
 	 * @return array
 	 */
-	public function DoAdminAccountUnblock()
+	public function DoAdminBlockedAccountDelete()
 	{
 		$this->IsAdminLoggined();
 
