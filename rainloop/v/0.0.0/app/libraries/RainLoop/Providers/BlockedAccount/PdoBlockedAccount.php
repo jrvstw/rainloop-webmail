@@ -71,7 +71,7 @@ class PdoBlockedAccount
 			if (\is_array($aFetch))
 			{
 				foreach ($aFetch as $aItem) {
-					$aResult[] = array( 'Name' => $aItem['id_account_str']);
+					$aResult[] = array('Name' => $aItem['id_account_str']);
 				}
 			}
 		}

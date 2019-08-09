@@ -47,6 +47,10 @@ class BlockedAccount extends \RainLoop\Providers\AbstractProvider
 	 */
 	public function AddAccount($sName)
 	{
+		if (\in_array(array('Name' => $sName), $this->GetList()))
+		{
+			throw new \RainLoop\Exceptions\ClientException(\RainLoop\Notifications::AccountAlreadyBlocked);
+		}
 		return $this->IsActive() ? $this->oDriver->AddAccount($sName) : false;
 	}
 

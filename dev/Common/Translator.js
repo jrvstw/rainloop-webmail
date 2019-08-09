@@ -76,6 +76,8 @@ const I18N_NOTIFICATION_MAP = [
 	[Notification.AccountAlreadyExists, 'NOTIFICATIONS/ACCOUNT_ALREADY_EXISTS'],
 	[Notification.AccountDoesNotExist, 'NOTIFICATIONS/ACCOUNT_DOES_NOT_EXIST'],
 
+	[Notification.AccountAlreadyBlocked, 'NOTIFICATIONS/ACCOUNT_ALREADY_BLOCKED'],
+
 	[Notification.MailServerError, 'NOTIFICATIONS/MAIL_SERVER_ERROR'],
 	[Notification.InvalidInputArgument, 'NOTIFICATIONS/INVALID_INPUT_ARGUMENT'],
 	[Notification.UnknownNotification, 'NOTIFICATIONS/UNKNOWN_ERROR'],

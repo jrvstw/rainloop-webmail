@@ -67,6 +67,8 @@ class Notifications
 	const AccountAlreadyExists = 801;
 	const AccountDoesNotExist = 802;
 
+	const AccountAlreadyBlocked = 851;
+
 	const MailServerError = 901;
 	const ClientViewError = 902;
 	const InvalidInputArgument = 903;
@@ -136,6 +138,7 @@ class Notifications
 			self::DemoAccountError => 'DemoAccountError',
 			self::AccountAlreadyExists => 'AccountAlreadyExists',
 			self::AccountDoesNotExist => 'AccountDoesNotExist',
+			self::AccountAlreadyBlocked => 'AccountAlreadyBlocked',
 			self::MailServerError => 'MailServerError',
 			self::ClientViewError => 'ClientViewError',
 			self::InvalidInputArgument => 'InvalidInputArgument',
