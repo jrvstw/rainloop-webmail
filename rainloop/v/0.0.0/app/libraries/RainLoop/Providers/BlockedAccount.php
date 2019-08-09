@@ -32,9 +32,32 @@ class BlockedAccount extends \RainLoop\Providers\AbstractProvider
 			$this->oDriver->IsSupported();
 	}
 
-	public function getList()
+	/**
+	 * @return array
+	 */
+	public function GetList()
 	{
-		return $this->IsActive() ? $this->oDriver->getList() : false;
+		return $this->IsActive() ? $this->oDriver->GetList() : array();
+	}
+
+	/**
+	 * @param string $sName
+	 *
+	 * @return bool
+	 */
+	public function AddAccount($sName)
+	{
+		return $this->IsActive() ? $this->oDriver->AddAccount($sName) : false;
+	}
+
+	/**
+	 * @param string $sName
+	 *
+	 * @return bool
+	 */
+	public function DeleteAccount($sName)
+	{
+		return $this->IsActive() ? $this->oDriver->DeleteAccount($sName) : false;
 	}
 
 }

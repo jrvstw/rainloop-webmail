@@ -4,6 +4,7 @@ namespace RainLoop\Providers\BlockedAccount;
 
 class PdoBlockedAccount
 	extends \RainLoop\Common\PdoAbstract
+	implements \RainLoop\Providers\BlockedAccount\BlockedAccountInterface
 {
 	/**
 	 * @var string
@@ -36,6 +37,14 @@ class PdoBlockedAccount
 	}
 
 	/**
+	 * @return array
+	 */
+	protected function getPdoAccessData()
+	{
+		return array($this->sDsnType, $this->sDsn, $this->sUser, $this->sPassword);
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function IsSupported()
@@ -49,18 +58,10 @@ class PdoBlockedAccount
 	 * @param int $iIdContact
 	 * @return array
 	 */
-	private function getList($iUserID, $iIdContact)
+	public function GetList()
 	{
 		$aResult = array();
 
-		/*
-		$sSql = 'SELECT prop_value, prop_frec FROM rainloop_ab_properties WHERE id_user = :id_user AND id_contact = :id_contact AND prop_type = :type';
-		$aParams = array(
-			':id_user' => array($iUserID, \PDO::PARAM_INT),
-			':id_contact' => array($iIdContact, \PDO::PARAM_INT),
-			':type' => array(PropertyType::EMAIl, \PDO::PARAM_INT)
-		);
-		 */
 		$sSql = 'SELECT id_account_str FROM rainloop_ab_blocked_accounts';
 
 		$oStmt = $this->prepareAndExecute($sSql);
@@ -69,14 +70,37 @@ class PdoBlockedAccount
 			$aFetch = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
 			if (\is_array($aFetch))
 			{
-				$aResult = array();
 				foreach ($aFetch as $aItem) {
-					$aResult[] = array( 'Name' => (int) $aItem['id_account_str']);
+					$aResult[] = array( 'Name' => $aItem['id_account_str']);
 				}
 			}
 		}
 
 		return $aResult;
+	}
+
+	/**
+	 * @param string $sName
+	 *
+	 * @return bool
+	 */
+	public function AddAccount($sName)
+	{
+		$sSql = 'INSERT INTO rainloop_ab_blocked_accounts VALUE (null, :id_account_str)';
+		$this->prepareAndExecute($sSql, array('id_account_str' => array($sName, \PDO::PARAM_STR)));
+		return true;
+	}
+
+	/**
+	 * @param string $sName
+	 *
+	 * @return bool
+	 */
+	public function DeleteAccount($sName)
+	{
+		$sSql = 'DELETE FROM rainloop_ab_blocked_accounts WHERE id_account_str = :id_account_str';
+		$this->prepareAndExecute($sSql, array('id_account_str' => array($sName, \PDO::PARAM_STR)));
+		return true;
 	}
 
 }

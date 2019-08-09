@@ -313,7 +313,6 @@ class Actions
 				case 'blocked-account':
 					// \RainLoop\Providers\BlockedAccount\BlockedAccountInterface
 
-					// todo
 					$sDsn = \trim($this->Config()->Get('contacts', 'pdo_dsn', ''));
 					$sUser = \trim($this->Config()->Get('contacts', 'pdo_user', ''));
 					$sPassword = (string) $this->Config()->Get('contacts', 'pdo_password', '');
@@ -4145,20 +4144,21 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	{
 		$this->IsAdminLoggined();
 
-		// todo
 		/*
-		$bResult = false;
-		if ($this->AddressBookProvider()->IsActive())
-		{
-			$bResult = $this->AddressBookProvider()->getList();
-		}
-
-		return $this->DefaultResponse(__FUNCTION__, $bResult);
-		 */
 		$tmp = explode("\n", trim(file_get_contents(APP_PRIVATE_DATA.'blocked/blocked.txt'), "\n"));
 		foreach ($tmp as $item) {
 			$aResult[] = array( 'Name' => $item);
 		}
+		$aResult[] = array( 'Name' => 'test');
+		 */
+
+		// todo
+		$aResult = false;
+		if ($this->BlockedAccountProvider()->IsActive())
+		{
+			$aResult = $this->BlockedAccountProvider()->GetList();
+		}
+
 		return $this->DefaultResponse(__FUNCTION__, $aResult);
 	}
 
@@ -4169,12 +4169,19 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	{
 		$this->IsAdminLoggined();
 
+		/*
 		$file = APP_PRIVATE_DATA.'blocked/blocked.txt';
 		$tmp = file_get_contents($file);
 		$append = $this->GetActionParam('Name', '')."\n";
 		file_put_contents($file, $tmp.$append);
+		 */
+		$bResult = false;
+		if ($this->BlockedAccountProvider()->IsActive())
+		{
+			$bResult = $this->BlockedAccountProvider()->AddAccount((string) $this->GetActionParam('Name', ''));
+		}
 
-		return $this->DefaultResponse(__FUNCTION__, true);
+		return $this->DefaultResponse(__FUNCTION__, $bResult);
 	}
 
 	/**
@@ -4184,10 +4191,17 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 	{
 		$this->IsAdminLoggined();
 
+		/*
 		$file = APP_PRIVATE_DATA.'blocked/blocked.txt';
 		$tmp = file_get_contents($file);
 		$tmp = str_replace($this->GetActionParam('Name', '')."\n", "", $tmp);
 		file_put_contents($file, $tmp);
+		 */
+		$bResult = false;
+		if ($this->BlockedAccountProvider()->IsActive())
+		{
+			$bResult = $this->BlockedAccountProvider()->DeleteAccount((string) $this->GetActionParam('Name', ''));
+		}
 
 		return $this->DefaultResponse(__FUNCTION__, true);
 	}
