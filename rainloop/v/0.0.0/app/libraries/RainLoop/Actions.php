@@ -2435,6 +2435,16 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 			}
 		}
 
+		if ($this->BlockedAccountProvider()->IsActive() == false)
+		{
+			throw new \RainLoop\Exceptions\ClientException(\RainLoop\Notifications::AuthError);
+		}
+
+		if ($this->BlockedAccountProvider()->Includes($sEmail))
+		{
+			throw new \RainLoop\Exceptions\ClientException(\RainLoop\Notifications::AccountAlreadyBlocked);
+		}
+
 		$this->AuthToken($oAccount);
 
 		if ($oAccount && 0 < \strlen($sLanguage))

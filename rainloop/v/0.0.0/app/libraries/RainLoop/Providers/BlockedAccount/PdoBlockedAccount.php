@@ -47,6 +47,22 @@ class PdoBlockedAccount
 	/**
 	 * @return bool
 	 */
+	public function Includes($sName)
+	{
+		$sSql = 'SELECT id_account_str FROM rainloop_ab_blocked_accounts WHERE id_account_str = :name';
+		$aParams = array('name' => array($sName, \PDO::PARAM_STR));
+		$oStmt = $this->prepareAndExecute($sSql, $aParams);
+		if ($oStmt)
+		{
+			$aFetch = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
+			return (0 < \count($aFetch));
+		}
+		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
 	public function IsSupported()
 	{
 		$aDrivers = \class_exists('PDO') ? \PDO::getAvailableDrivers() : array();

@@ -655,6 +655,7 @@ en:
     ACCOUNT_NOT_ALLOWED: "Account is not allowed"
     ACCOUNT_TWO_FACTOR_AUTH_REQUIRED: "Two factor verification required"
     ACCOUNT_TWO_FACTOR_AUTH_ERROR: "Two factor verification error"
+    ACCOUNT_ALREADY_BLOCKED: "Account is blocked"
     COULD_NOT_SAVE_NEW_PASSWORD: "Could not save new password"
     CURRENT_PASSWORD_INCORRECT: "Current password incorrect"
     NEW_PASSWORD_SHORT: "Password is too short"
