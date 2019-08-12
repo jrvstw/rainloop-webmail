@@ -49,8 +49,9 @@ class PdoBlockedAccount
 	 */
 	public function Includes($sName)
 	{
+		$this->touchDatabase();
 		$sSql = 'SELECT id_account_str FROM rainloop_ab_blocked_accounts WHERE id_account_str = :name';
-		$aParams = array('name' => array($sName, \PDO::PARAM_STR));
+		$aParams = array(':name' => array($sName, \PDO::PARAM_STR));
 		$oStmt = $this->prepareAndExecute($sSql, $aParams);
 		if ($oStmt)
 		{
@@ -76,6 +77,7 @@ class PdoBlockedAccount
 	 */
 	public function GetList()
 	{
+		$this->touchDatabase();
 		$aResult = array();
 
 		$sSql = 'SELECT id_account_str FROM rainloop_ab_blocked_accounts';
@@ -102,6 +104,7 @@ class PdoBlockedAccount
 	 */
 	public function AddAccount($sName)
 	{
+		$this->touchDatabase();
 		$sSql = 'INSERT INTO rainloop_ab_blocked_accounts VALUE (null, :id_account_str)';
 		$this->prepareAndExecute($sSql, array('id_account_str' => array($sName, \PDO::PARAM_STR)));
 		return true;
@@ -114,9 +117,28 @@ class PdoBlockedAccount
 	 */
 	public function DeleteAccount($sName)
 	{
+		$this->touchDatabase();
 		$sSql = 'DELETE FROM rainloop_ab_blocked_accounts WHERE id_account_str = :id_account_str';
 		$this->prepareAndExecute($sSql, array('id_account_str' => array($sName, \PDO::PARAM_STR)));
 		return true;
+	}
+
+	private function touchDatabase()
+	{
+		$sInitial = <<<MYSQLINITIAL
+
+CREATE TABLE IF NOT EXISTS rainloop_ab_blocked_accounts (
+
+id_account		bigint UNSIGNED		NOT NULL AUTO_INCREMENT,
+id_account_str	varchar(128)		NOT NULL DEFAULT '',
+
+PRIMARY KEY(id_account)
+
+)/*!40000 ENGINE=INNODB *//*!40101 CHARACTER SET utf8 COLLATE utf8_general_ci */;
+
+MYSQLINITIAL;
+
+		return $this->prepareAndExecute($sInitial);
 	}
 
 }
